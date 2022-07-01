@@ -18,9 +18,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_extend/share_extend.dart';
 //Local imports
-// ignore: depend_on_referenced_packages
-import 'package:github_flutter/core/helper/file_saver_mobile.dart'
-    if (dart.library.html) 'package:github_flutter/core/helper/file_saver_web.dart';
 
 class GithubBloc with ChangeNotifier {
   final Dio _dio = Dio();
@@ -86,7 +83,8 @@ class GithubBloc with ChangeNotifier {
     try {
       setCurrentUserRepoListState(CurrentUserRepoListState.loading);
       List<Repositries> _list = [];
-      _list = await _githubRepository.getuserRepositriesList(username);
+      _list = await _githubRepository.getuserRepositriesList(username)
+          as List<Repositries>;
       _currentUserRepoList = _list;
       _currentUserRepoList!.sort((a, b) => b.stars!.compareTo(a.stars!));
       setCurrentUserRepoListState(CurrentUserRepoListState.loaded);
@@ -131,11 +129,11 @@ class GithubBloc with ChangeNotifier {
       if (actionUserListType == ActionUserListType.star ||
           actionUserListType == ActionUserListType.forks) {
         _list = await _githubRepository.getRepoActionUserList(
-            username, actionUserListType, repoName);
+            username, actionUserListType, repoName) as List<User>;
         _usersList = _list;
       } else {
         _list = await _githubRepository.getActionUserList(
-            username, actionUserListType);
+            username, actionUserListType) as List<User>;
         _usersList = _list;
       }
 

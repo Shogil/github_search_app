@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   testWidgets(
     'Should display Current User Profile',
     (WidgetTester tester) async {
       // Arrange
       // enableFlutterDriverExtension();
 
+      var app;
       app.main();
       await tester.pumpAndSettle();
 
